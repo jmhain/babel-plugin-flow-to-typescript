@@ -217,7 +217,7 @@ function convertFlowType(path) {
         let ret = types_1.tsTypeLiteral(members);
         if (spreads.length > 0) {
             spreads.unshift(ret);
-            ret = types_1.tsUnionType(spreads);
+            ret = types_1.tsIntersectionType(spreads);
         }
         return ret;
     }
