@@ -152,6 +152,8 @@ export function convertFlowType(path: NodePath<FlowType>): TSType {
             return tsIndexedAccessType(tsT, tsK);
         } else if (id.name === '$FlowFixMe') {
             return tsTypeReference(identifier('any'), tsTypeParameters);
+        } else if (id.name === '$Shape') {
+            return tsTypeReference(identifier('Partial'), tsTypeParameters);
         } else if (id.name === 'Object') {
             const id = identifier('x');
             id.typeAnnotation = tsTypeAnnotation(tsStringKeyword());

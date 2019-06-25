@@ -82,6 +82,9 @@ function convertFlowType(path) {
         else if (id.name === '$FlowFixMe') {
             return types_1.tsTypeReference(types_1.identifier('any'), tsTypeParameters);
         }
+        else if (id.name === '$Shape') {
+            return types_1.tsTypeReference(types_1.identifier('Partial'), tsTypeParameters);
+        }
         else if (id.name === 'Object') {
             const id = types_1.identifier('x');
             id.typeAnnotation = types_1.tsTypeAnnotation(types_1.tsStringKeyword());
