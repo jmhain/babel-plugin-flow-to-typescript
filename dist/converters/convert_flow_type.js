@@ -89,6 +89,9 @@ function convertFlowType(path) {
             const id = types_1.identifier('x');
             id.typeAnnotation = types_1.tsTypeAnnotation(types_1.tsStringKeyword());
             return types_1.tsTypeLiteral([types_1.tsIndexSignature([id], types_1.tsTypeAnnotation(types_1.tsAnyKeyword()))]);
+        }
+        else if (id.name === 'IntervalID' || id.name === 'TimeoutID') {
+            return types_1.tsTypeReference(types_1.identifier('NodeJS.Timer'), tsTypeParameters);
             // @ts-ignore
         }
         else if (id.type === 'QualifiedTypeIdentifier') {

@@ -158,6 +158,8 @@ export function convertFlowType(path: NodePath<FlowType>): TSType {
             const id = identifier('x');
             id.typeAnnotation = tsTypeAnnotation(tsStringKeyword());
             return tsTypeLiteral([tsIndexSignature([id], tsTypeAnnotation(tsAnyKeyword()))]);
+        } else if (id.name === 'IntervalID' || id.name === 'TimeoutID') {
+            return tsTypeReference(identifier('NodeJS.Timer'), tsTypeParameters);
             // @ts-ignore
         } else if (id.type === 'QualifiedTypeIdentifier') {
             // @ts-ignore
