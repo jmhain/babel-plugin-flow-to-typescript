@@ -110,7 +110,7 @@ function convertFlowType(path) {
         return types_1.tsIntersectionType(flowTypes.map((_, i) => convertFlowType(path.get(`types.${i}`))));
     }
     if (util_1.isNodePath(types_1.isMixedTypeAnnotation, path)) {
-        return types_1.tsTypeReference(types_1.identifier('FlowMixed'));
+        return types_1.tsTypeReference(types_1.identifier('unknown'));
         // return tsTypeAnnotation(tsTypeReference(identifier('FlowMixed')));
     }
     if (util_1.isNodePath(types_1.isNullableTypeAnnotation, path)) {

@@ -182,7 +182,7 @@ export function convertFlowType(path: NodePath<FlowType>): TSType {
     }
 
     if (isNodePath(isMixedTypeAnnotation, path)) {
-        return tsTypeReference(identifier('FlowMixed'));
+        return tsTypeReference(identifier('unknown'));
         // return tsTypeAnnotation(tsTypeReference(identifier('FlowMixed')));
     }
 
