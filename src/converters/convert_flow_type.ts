@@ -46,7 +46,6 @@ import {
   tsNeverKeyword,
   tsNullKeyword,
   tsNumberKeyword,
-  tsObjectKeyword,
   tsParenthesizedType,
   tsStringKeyword,
   tsThisType,
@@ -59,7 +58,6 @@ import {
   TSTypeParameterInstantiation,
   tsTypeParameterInstantiation,
   tsTypeReference,
-  tsUndefinedKeyword,
   TSUnionType,
   tsUnionType,
   tsUnknownKeyword,
@@ -196,7 +194,15 @@ export function convertFlowType(node: FlowType): TSType {
     } else if (isIdentifier(id) && id.name === '$FlowFixMe') {
       return tsTypeReference(identifier('any'), tsTypeParameters);
     } else if (isIdentifier(id) && id.name === 'Object') {
-      return tsObjectKeyword();
+      return tsTypeReference(
+        identifier('Record'),
+        tsTypeParameterInstantiation([
+          tsTypeReference(identifier('string')),
+          tsTypeReference(identifier('any'))
+        ])
+      );
+    } else if (isIdentifier(id) && (id.name === 'IntervalID' || id.name === 'TimeoutID')) {
+      return tsTypeReference(identifier('number'), tsTypeParameters);
     } else if (isQualifiedTypeIdentifier(id) || isIdentifier(id)) {
       return tsTypeReference(convertFlowIdentifier(id), tsTypeParameters);
     }
@@ -228,7 +234,7 @@ export function convertFlowType(node: FlowType): TSType {
     // f(): ?T {} -> f(): T | null | undefined {}
     // var x: X<?T> -> var x: X<T | null | undefined>
     // var x:?T -> var x:T | null | undefined
-    return tsUnionType([tsType, tsUndefinedKeyword(), tsNullKeyword()]);
+    return tsUnionType([tsType, tsNullKeyword()]);
   }
 
   if (isNullLiteralTypeAnnotation(node)) {
